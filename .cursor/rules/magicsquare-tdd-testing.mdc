@@ -1,0 +1,25 @@
+---
+description: TDD flow and pytest AAA testing conventions
+globs: "{src,tests}/**/*.py"
+alwaysApply: false
+---
+
+# TDD and Testing
+
+## RED
+- Write a failing test first.
+- Confirm failure is meaningful before implementation.
+- Must not write implementation before RED.
+
+## GREEN
+- Pass tests with minimum code only.
+- Must not refactor in this phase.
+
+## REFACTOR
+- Improve structure without behavior changes.
+- Keep all tests green and maintain minimum coverage (`80%`).
+
+## Test Conventions
+- Use `pytest`.
+- Follow AAA (Arrange, Act, Assert).
+- Name tests with `test_` prefix.
