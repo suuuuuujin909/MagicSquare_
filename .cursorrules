@@ -1,0 +1,108 @@
+################################################################################
+project:
+  name: "MagicSquare"
+  language: "Python"
+  python_version: "3.10+"
+  architecture_pattern: "ECB (boundary/control/entity)"
+  test_framework: "pytest"
+
+################################################################################
+code_style:
+  python_version: "3.10+"
+  style_guide: "PEP8 strict"
+  max_line_length: 88
+  type_hints: "required for all params and returns"
+  docstring: "Google style required for all public methods"
+
+################################################################################
+architecture:
+  pattern: "ECB"
+  boundary:
+    role: "External IO (UI/API/CLI)"
+  control:
+    role: "Use-case orchestration and business flow"
+  entity:
+    role: "Domain data and business invariants"
+  dependency_direction:
+    allowed:
+      - "boundary -> control"
+      - "control -> entity"
+    forbidden:
+      - "boundary -> entity (direct)"
+      - "entity -> control"
+      - "entity -> boundary"
+
+################################################################################
+tdd_rules:
+  red_phase:
+    description: "Write test first and confirm failure before implementation."
+    rules:
+      - "Define expected behavior as failing test."
+      - "Move forward only after meaningful RED is confirmed."
+    must_not:
+      - "Implement production code before RED."
+      - "Weaken tests to avoid failure."
+  green_phase:
+    description: "Pass tests with minimum code only."
+    rules:
+      - "Implement only what is needed for current failing tests."
+      - "Keep changes small and focused."
+    must_not:
+      - "Do refactoring in this phase."
+      - "Add speculative features."
+  refactor_phase:
+    description: "Improve structure without changing behavior."
+    rules:
+      - "Keep all tests green."
+      - "Maintain or improve coverage."
+    must_not:
+      - "Introduce behavior changes."
+      - "Lower coverage by removing or weakening tests."
+
+################################################################################
+testing:
+  framework: "pytest"
+  pattern: "AAA (Arrange-Act-Assert)"
+  coverage_minimum: "80%"
+  fixture_scope:
+    default: "function"
+    rule: "Use broader scopes only with clear performance rationale."
+  naming_convention: "test_ prefix required"
+
+################################################################################
+forbidden:
+  - pattern: "print()"
+    reason: "Noisy debugging and not testable/structured."
+    alternative: "Use logging and pytest assertions/capture."
+  - pattern: "hardcoded constants"
+    reason: "Hurts readability and maintainability."
+    alternative: "Extract named constants or config values."
+  - pattern: "bare except:"
+    reason: "Hides root causes and catches system exceptions."
+    alternative: "Catch specific exceptions and handle explicitly."
+
+################################################################################
+file_structure:
+  # src/
+  #   boundary/
+  #   control/
+  #   entity/
+  # tests/
+  #   boundary/
+  #   control/
+  #   entity/
+  source_root: "src"
+  test_root: "tests"
+
+################################################################################
+ai_behavior:
+  before_coding:
+    - "Check related tests first."
+    - "Choose ECB layer before writing code."
+  during_coding:
+    - "Do not violate ECB boundaries."
+    - "Do not create functions without type hints."
+    - "Follow RED -> GREEN -> REFACTOR."
+  after_coding:
+    - "Run relevant pytest tests."
+    - "If TDD rules are violated, clearly warn and explain why."

@@ -1,0 +1,12 @@
+---
+description: MagicSquare core project standards
+alwaysApply: true
+---
+
+# MagicSquare Project Rules
+
+- Language is Python `3.10+`.
+- Follow ECB architecture: `boundary`, `control`, `entity`.
+- Testing framework is `pytest` with AAA pattern.
+- Follow Dual-Track TDD and never skip RED.
+- Never weaken existing tests to make builds pass.

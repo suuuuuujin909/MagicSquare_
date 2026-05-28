@@ -1,0 +1,27 @@
+---
+description: Forbidden patterns and safer alternatives
+globs: "**/*.py"
+alwaysApply: false
+---
+
+# Forbidden Patterns
+
+- `print()` for debugging
+  - Reason: noisy and unstructured.
+  - Use: `logging` and assertions.
+
+- Hardcoded constants in logic
+  - Reason: low maintainability.
+  - Use: named constants/config.
+
+- Bare `except:`
+  - Reason: hides errors and catches too broadly.
+  - Use: specific exception types with explicit handling.
+
+- Implementation before RED
+  - Reason: breaks TDD discipline.
+  - Use: create failing test first, then implement.
+
+- Weakening/removing tests to pass CI
+  - Reason: reduces reliability.
+  - Use: fix production code or clarify requirements.
